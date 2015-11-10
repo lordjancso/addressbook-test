@@ -1,6 +1,14 @@
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
+security.login:
+    path: /admin/login
+    defaults: { _controller: AppBundle:Security:login }
+security.login_check:
+    path: /admin/login_check
+security.logout:
+    path: /admin/logout
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

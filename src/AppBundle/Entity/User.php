@@ -2,16 +2,25 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\SoftDeleteableEntity;
+use AppBundle\Entity\Traits\TimestampableEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @UniqueEntity("username")
  */
-class User
+class User implements UserInterface, \Serializable
 {
+    use TimestampableEntity;
+    use SoftDeleteableEntity;
+
     /**
      * @var integer
      *
@@ -24,6 +33,7 @@ class User
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
@@ -31,6 +41,15 @@ class User
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     * @ORM\Column(name="role", type="string", length=255)
+     */
+    private $role;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
@@ -38,6 +57,7 @@ class User
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
@@ -75,6 +95,29 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 
     /**
@@ -123,5 +166,31 @@ class User
     public function getUsername()
     {
         return $this->username;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return array($this->role);
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array($this->id, $this->username, $this->password));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list ($this->id, $this->username, $this->password) = unserialize($serialized);
     }
 }
