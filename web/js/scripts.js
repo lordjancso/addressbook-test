@@ -1,3 +1,9 @@
+if (!Array.prototype.last) {
+    Array.prototype.last = function () {
+        return this[this.length - 1];
+    };
+}
+
 $(function () {
     $(document).on('click', '.pagination a', function (e) {
         e.preventDefault();
@@ -10,45 +16,49 @@ $(function () {
         }).done(function (data) {
             var table = $('table.table tbody').empty();
             $.each(data.entries, function (index, entry) {
-                var buttons = '';
-                buttons += '<a class="btn btn-default btn-xs" href="' + Routing.generate('entry.edit', {id: entry.id}) + '"><span aria-hidden="true" class="glyphicon glyphicon-edit"></span> Módosítás</a> ';
-                buttons += '<a class="btn btn-default btn-xs" href="' + Routing.generate('entry.delete', {id: entry.id}) + '"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span> Törlés</a>';
-
-                var row = $('<tr>');
+                var row = $('<tr>').attr('data-id', entry.id);
                 row.append($('<td>').text(entry.name));
-                row.append($('<td>').text(new Date(entry.created_at).format('yyyy-mm-dd HH:MM:ss')));
-                row.append($('<td>').text(new Date(entry.updated_at).format('yyyy-mm-dd HH:MM:ss')));
-                row.append($('<td>').html(buttons));
+                row.append($('<td>').text(entry.addresses.last().address));
+                row.append($('<td>').text(entry.emails.last().email));
+                row.append($('<td>').text(entry.phones.last().phone));
 
                 table.append(row);
             });
 
             $('.navigation .pagination').replaceWith(data.pagination);
 
-            history.pushState(null, null, 'entries?page=' + page);
+            history.pushState(null, null, '?page=' + page);
         });
     });
-});
 
-$(function () {
-    $(document).on('click', 'button.delete-item', function () {
-        if ($(this).closest('.wrapper').children().length == 2) {
-            return;
-        }
+    $(document).on('click', 'table.table tbody tr', function () {
+        var id = $(this).data('id');
 
-        var container = $(this).parent('div').parent('div');
-        container.remove();
-    });
+        $.ajax({
+            type: 'GET',
+            url: Routing.generate('api.entry.show', {id: id}),
+            dataType: 'json'
+        }).done(function (data) {
+            var content = 'Név: ' + data.name + '<br/>';
 
-    $('button.add-item').on('click', function () {
-        var list = $(this).closest('.wrapper');
-        var length = list.data('length');
-        var newItem = list.data('prototype');
+            content += '<br/>Címek:<br/>';
+            $.each(data.addresses, function (index, address) {
+                content += address.address + '<br/>';
+            });
 
-        newItem = newItem.replace(/__name__/g, length);
-        length++;
+            content += '<br/>E-mail címek:<br/>';
+            $.each(data.emails, function (index, email) {
+                content += email.email + '<br/>';
+            });
 
-        list.data('length', length);
-        $(this).closest('.form-group').before($(newItem));
+            content += '<br/>Telefonok:<br/>';
+            $.each(data.phones, function (index, phone) {
+                content += phone.phone + '<br/>';
+            });
+
+            var modal = $('#details-modal');
+            modal.find('.modal-body').html(content);
+            modal.modal();
+        });
     });
 });

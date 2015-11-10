@@ -1,8 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    <script src="{{ asset('js/admin.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <div class="container">
-        <h1>Címlista bejegyzések</h1>
+        <h1 class="pull-left">Címlista bejegyzések</h1>
+
+        <h1 class="pull-right">
+            <a href="{{ path('security.logout') }}" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Kilépés
+            </a>
+        </h1>
     </div>
 
     <div class="container">

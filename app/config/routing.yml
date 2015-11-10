@@ -31,8 +31,13 @@ entry.delete:
         expose: true
 
 api.entry.index:
-    path: /admin/api/entries
+    path: /api/entries
     defaults: { _controller: AppBundle:ApiEntry:index }
+    options:
+        expose: true
+api.entry.show:
+    path: /api/entries/{id}/show
+    defaults: { _controller: AppBundle:ApiEntry:show }
     options:
         expose: true
 

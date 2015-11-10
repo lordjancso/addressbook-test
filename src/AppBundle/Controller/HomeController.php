@@ -9,6 +9,18 @@ class HomeController extends Controller
 {
     public function indexAction(Request $request)
     {
-        return $this->render('home/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Entry')->findAllToPagination();
+
+        $paginator = $this->get('knp_paginator');
+        $entries = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('home/index.html.twig', array(
+            'entries' => $entries
+        ));
     }
 }

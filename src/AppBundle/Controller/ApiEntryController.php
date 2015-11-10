@@ -34,4 +34,21 @@ class ApiEntryController extends Controller
             'Content-Type' => 'application/json'
         ));
     }
+
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entry = $em->getRepository('AppBundle:Entry')->find($id);
+
+        if (!$entry) {
+            throw $this->createNotFoundException();
+        }
+
+        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+        $jsonResponse = $serializer->serialize($entry, 'json');
+
+        return new Response($jsonResponse, Response::HTTP_OK, array(
+            'Content-Type' => 'application/json'
+        ));
+    }
 }

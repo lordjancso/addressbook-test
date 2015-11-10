@@ -1,9 +1,25 @@
+{#
+/**
+ * @file
+ * Twitter Bootstrap v3 Sliding pagination control implementation.
+ *
+ * View that can be used with the pagination module
+ * from the Twitter Bootstrap CSS Toolkit
+ * http://getbootstrap.com/components/#pagination
+ *
+ * @author Pablo Díez <pablodip@gmail.com>
+ * @author Jan Sorgalla <jsorgalla@gmail.com>
+ * @author Artem Ponomarenko <imenem@inbox.ru>
+ * @author Artem Zabelin <artjomzabelin@gmail.com>
+ */
+#}
+
 {% if pageCount > 1 %}
     <ul class="pagination">
 
         {% if previous is defined %}
             <li>
-                <a href="#" data-page="{{ previous }}">&laquo;&nbsp;{{ 'Previous'|trans }}</a>
+                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" data-page="{{ previous }}">&laquo;&nbsp;{{ 'Previous'|trans }}</a>
             </li>
         {% else %}
             <li class="disabled">
@@ -13,11 +29,11 @@
 
         {% if startPage > 1 %}
             <li>
-                <a href="#" data-page="1">1</a>
+                <a href="{{ path(route, query|merge({(pageParameterName): 1})) }}" data-page="1">1</a>
             </li>
             {% if startPage == 3 %}
                 <li>
-                    <a href="#" data-page="2">2</a>
+                    <a href="{{ path(route, query|merge({(pageParameterName): 2})) }}" data-page="2">2</a>
                 </li>
             {% elseif startPage != 2 %}
                 <li class="disabled">
@@ -29,7 +45,7 @@
         {% for page in pagesInRange %}
             {% if page != current %}
                 <li>
-                    <a href="#" data-page="{{ page }}">{{ page }}</a>
+                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}" data-page="{{ page }}">{{ page }}</a>
                 </li>
             {% else %}
                 <li class="active">
@@ -47,18 +63,18 @@
                     </li>
                 {% else %}
                     <li>
-                        <a href="#" data-page="{{ pageCount - 1 }}">{{ pageCount -1 }}</a>
+                        <a href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}" data-page="{{ pageCount -1 }}">{{ pageCount -1 }}</a>
                     </li>
                 {% endif %}
             {% endif %}
             <li>
-                <a href="#" data-page="{{ pageCount }}">{{ pageCount }}</a>
+                <a href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}" data-page="{{ pageCount }}">{{ pageCount }}</a>
             </li>
         {% endif %}
 
         {% if next is defined %}
             <li>
-                <a href="#" data-page="{{ next }}">{{ 'Next'|trans }}&nbsp;&raquo;</a>
+                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}" data-page="{{ next }}">{{ 'Next'|trans }}&nbsp;&raquo;</a>
             </li>
         {% else %}
             <li class="disabled">
