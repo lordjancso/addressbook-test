@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                <form action="{{ path('security.login_check') }}" method="post">
+                    <h1 class="text-center">AddressBook Admin Login</h1>
+
+                    <div class="form-group">
+                        <label for="username" class="sr-only">Felhasználónév:</label>
+                        <input type="text" id="username" name="_username" placeholder="Felhasználónév" class="form-control" value="{{ last_username }}" autofocus required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="sr-only">Jelszó:</label>
+                        <input type="password" id="password" name="_password" placeholder="Jelszó" class="form-control" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                        <input type="hidden" name="_target_path" value="/"/>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">Bejelentkezés</button>
+                    </div>
+
+                    {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

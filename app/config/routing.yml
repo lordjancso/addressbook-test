@@ -9,6 +9,10 @@ security.login_check:
 security.logout:
     path: /admin/logout
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+admin.index:
+    path: /admin
+    defaults: { _controller: AppBundle:Admin:index }
+
+home.index:
+    path: /
+    defaults: { _controller: AppBundle:Home:index }
