@@ -15,6 +15,12 @@ class EntryPhoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('phone');
+        $builder->add('delete', 'button', array(
+            'attr' => array(
+                'class' => 'delete-item btn btn-danger btn-block'
+            ),
+            'label' => 'Törlése'
+        ));
     }
 
     /**

@@ -8,20 +8,62 @@
         {{ form_start(form, {attr: {autocomplete: 'off'}}) }}
         <div class="col-md-12">
             {{ form_row(form.name) }}
-            {{ form_row(form.addresses) }}
-            {{ form_row(form.emails) }}
-            {{ form_row(form.phones) }}
+
+            <hr/>
+
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-8">
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Mentés</button>
+                {{ form_errors(form.addresses) }}
+                <div class="col-md-12">
+                    <div id="app_entry_addresses" class="wrapper" data-length="{{ form.addresses|length }}" data-prototype="{{ form_widget(form.addresses.vars.prototype)|e }}">
+                        {% for address in form.addresses %}
+                            {{ form_widget(address) }}
+                        {% endfor %}
+                        <div class="form-group">
+                            <button type="button" class="add-item btn btn-success btn-block">Cím hozzáadása</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-offset-2 col-sm-8">
-                    <div class="form-group">
-                        <a href="{{ path('entry.index') }}" class="btn btn-default btn-block">Vissza</a>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                {{ form_errors(form.emails) }}
+                <div class="col-md-12">
+                    <div id="app_entry_emails" class="wrapper" data-length="{{ form.emails|length }}" data-prototype="{{ form_widget(form.emails.vars.prototype)|e }}">
+                        {% for email in form.emails %}
+                            {{ form_widget(email) }}
+                        {% endfor %}
+                        <div class="form-group">
+                            <button type="button" class="add-item btn btn-success btn-block">E-mail cím hozzáadása</button>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                {{ form_errors(form.phones) }}
+                <div class="col-md-12">
+                    <div id="app_entry_phones" class="wrapper" data-length="{{ form.phones|length }}" data-prototype="{{ form_widget(form.phones.vars.prototype)|e }}">
+                        {% for phone in form.phones %}
+                            {{ form_widget(phone) }}
+                        {% endfor %}
+                        <div class="form-group">
+                            <button type="button" class="add-item btn btn-success btn-block">Telefon hozzáadása</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Mentés</button>
+            </div>
+            <div class="form-group">
+                <a href="{{ path('entry.index') }}" class="btn btn-default btn-block">Vissza</a>
             </div>
         </div>
         {{ form_end(form) }}

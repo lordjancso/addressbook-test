@@ -15,6 +15,12 @@ class EntryEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('email');
+        $builder->add('delete', 'button', array(
+            'attr' => array(
+                'class' => 'delete-item btn btn-danger btn-block'
+            ),
+            'label' => 'Törlése'
+        ));
     }
 
     /**

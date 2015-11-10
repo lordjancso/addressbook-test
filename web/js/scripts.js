@@ -29,3 +29,26 @@ $(function () {
         });
     });
 });
+
+$(function () {
+    $(document).on('click', 'button.delete-item', function () {
+        if ($(this).closest('.wrapper').children().length == 2) {
+            return;
+        }
+
+        var container = $(this).parent('div').parent('div');
+        container.remove();
+    });
+
+    $('button.add-item').on('click', function () {
+        var list = $(this).closest('.wrapper');
+        var length = list.data('length');
+        var newItem = list.data('prototype');
+
+        newItem = newItem.replace(/__name__/g, length);
+        length++;
+
+        list.data('length', length);
+        $(this).closest('.form-group').before($(newItem));
+    });
+});
