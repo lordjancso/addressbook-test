@@ -8,28 +8,36 @@
     <div class="container">
         <div class="col-md-12">
             <table class="table table-hover">
+                <thead>
                 <tr>
                     <th>Név</th>
+                    <th>Létrehozás</th>
+                    <th>Utolsó módosítás</th>
                     <th>
                         Műveletek
                         <a href="{{ path('entry.create') }}" class="btn btn-default btn-xs">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Létrehozás
                         </a>
                     </th>
                 </tr>
+                </thead>
+                <tbody>
                 {% for entry in entries %}
                     <tr>
                         <td>{{ entry.name }}</td>
+                        <td>{{ entry.createdAt|date('Y-m-d H:i:s') }}</td>
+                        <td>{{ entry.updatedAt|date('Y-m-d H:i:s') }}</td>
                         <td>
                             <a href="{{ path('entry.edit', {id: entry.id}) }}" class="btn btn-default btn-xs">
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Módosítás
                             </a>
                             <a href="{{ path('entry.delete', {id: entry.id}) }}" class="btn btn-default btn-xs">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Törlés
                             </a>
                         </td>
                     </tr>
                 {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>
