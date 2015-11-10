@@ -40,7 +40,7 @@ class Entry
      * @var EntryAddress[]
      *
      * @Assert\Valid()
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryAddress", mappedBy="entry", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryAddress", mappedBy="entry", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $addresses;
 
@@ -48,7 +48,7 @@ class Entry
      * @var EntryEmail[]
      *
      * @Assert\Valid()
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryEmail", mappedBy="entry", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryEmail", mappedBy="entry", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $emails;
 
@@ -56,7 +56,7 @@ class Entry
      * @var EntryPhone[]
      *
      * @Assert\Valid()
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryPhone", mappedBy="entry", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryPhone", mappedBy="entry", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $phones;
 
