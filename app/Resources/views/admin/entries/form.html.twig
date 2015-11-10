@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="col-sm-offset-2">Bejegyzés létrehozása/szerkesztése</h1>
+    </div>
+    <div class="container">
+        {{ form_start(form, {attr: {autocomplete: 'off'}}) }}
+        <div class="col-md-12">
+            {{ form_row(form.name) }}
+            {{ form_row(form.addresses) }}
+            {{ form_row(form.emails) }}
+            {{ form_row(form.phones) }}
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Mentés</button>
+                    </div>
+                </div>
+                <div class="col-sm-offset-2 col-sm-8">
+                    <div class="form-group">
+                        <a href="{{ path('entry.index') }}" class="btn btn-default btn-block">Vissza</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

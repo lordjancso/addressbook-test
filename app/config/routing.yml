@@ -13,6 +13,23 @@ admin.index:
     path: /admin
     defaults: { _controller: AppBundle:Admin:index }
 
+entry.index:
+    path: /admin/entries
+    defaults: { _controller: AppBundle:Entry:index }
+entry.create:
+    path: /admin/entries/create
+    defaults: { _controller: AppBundle:Entry:create }
+entry.edit:
+    path: /admin/entries/{id}/edit
+    defaults: { _controller: AppBundle:Entry:edit }
+entry.delete:
+    path: /admin/entries/{id}/delete
+    defaults: { _controller: AppBundle:Entry:delete }
+    options:
+        expose: true
+
 home.index:
     path: /
     defaults: { _controller: AppBundle:Home:index }
+    options:
+        expose: true

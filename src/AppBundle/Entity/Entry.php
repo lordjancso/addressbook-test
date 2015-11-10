@@ -109,6 +109,7 @@ class Entry
     public function addAddress(\AppBundle\Entity\EntryAddress $address)
     {
         $this->addresses[] = $address;
+        $address->setEntry($this);
 
         return $this;
     }
@@ -143,6 +144,7 @@ class Entry
     public function addEmail(\AppBundle\Entity\EntryEmail $email)
     {
         $this->emails[] = $email;
+        $email->setEntry($this);
 
         return $this;
     }
@@ -177,6 +179,7 @@ class Entry
     public function addPhone(\AppBundle\Entity\EntryPhone $phone)
     {
         $this->phones[] = $phone;
+        $phone->setEntry($this);
 
         return $this;
     }
