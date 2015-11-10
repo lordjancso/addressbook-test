@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\SoftDeleteableEntity;
 use AppBundle\Entity\Traits\TimestampableEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -12,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\EntryRepository")
+ * @Gedmo\SoftDeleteable
  */
 class Entry
 {
@@ -38,7 +40,7 @@ class Entry
      * @var EntryAddress[]
      *
      * @Assert\Valid()
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryAddress", mappedBy="entry", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryAddress", mappedBy="entry", cascade={"persist", "remove"})
      */
     private $addresses;
 
@@ -46,7 +48,7 @@ class Entry
      * @var EntryEmail[]
      *
      * @Assert\Valid()
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryEmail", mappedBy="entry", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryEmail", mappedBy="entry", cascade={"persist", "remove"})
      */
     private $emails;
 
@@ -54,7 +56,7 @@ class Entry
      * @var EntryPhone[]
      *
      * @Assert\Valid()
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryPhone", mappedBy="entry", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EntryPhone", mappedBy="entry", cascade={"persist", "remove"})
      */
     private $phones;
 

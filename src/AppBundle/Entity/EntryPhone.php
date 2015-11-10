@@ -5,12 +5,14 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\SoftDeleteableEntity;
 use AppBundle\Entity\Traits\TimestampableEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * EntryPhone
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\EntryPhoneRepository")
+ * @Gedmo\SoftDeleteable
  */
 class EntryPhone
 {
