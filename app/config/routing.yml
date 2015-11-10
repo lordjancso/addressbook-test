@@ -22,9 +22,17 @@ entry.create:
 entry.edit:
     path: /admin/entries/{id}/edit
     defaults: { _controller: AppBundle:Entry:edit }
+    options:
+        expose: true
 entry.delete:
     path: /admin/entries/{id}/delete
     defaults: { _controller: AppBundle:Entry:delete }
+    options:
+        expose: true
+
+api.entry.index:
+    path: /admin/api/entries
+    defaults: { _controller: AppBundle:ApiEntry:index }
     options:
         expose: true
 
