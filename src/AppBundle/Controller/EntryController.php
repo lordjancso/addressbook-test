@@ -21,7 +21,10 @@ class EntryController extends Controller
         $entries = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            10
+            10,
+            array(
+                'wrap-queries' => true
+            )
         );
 
         return $this->render('admin/entries/index.html.twig', array(

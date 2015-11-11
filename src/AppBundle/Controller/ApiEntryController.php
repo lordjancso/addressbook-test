@@ -17,7 +17,10 @@ class ApiEntryController extends Controller
         $entries = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            10
+            10,
+            array(
+                'wrap-queries' => true
+            )
         );
 
         $pagination = $this->renderView('common/paginator.html.twig', array(

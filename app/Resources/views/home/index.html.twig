@@ -20,10 +20,10 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Név</th>
-                    <th>Cím</th>
-                    <th>E-mail cím</th>
-                    <th>Telefon</th>
+                    <th>{{ knp_pagination_sortable(entries, 'Név', 'e.name') }}</th>
+                    <th>{{ knp_pagination_sortable(entries, 'Cím', 'a.address') }}</th>
+                    <th>{{ knp_pagination_sortable(entries, 'E-mail cím', 'em.email') }}</th>
+                    <th>{{ knp_pagination_sortable(entries, 'Telefon', 'p.phone') }}</th>
                 </tr>
                 </thead>
                 <tbody>
